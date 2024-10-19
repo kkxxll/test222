@@ -9,3 +9,12 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
+          script_stop: true
+          script: |
+            cd /root/resource/nginx/
+            ls -al
+            rm -rf test-deploy
+            git clone https://github.com:sam9831/test-deploy.git -b ${{github.ref_name}}
+            cd test-deploy
+            npm install
+            npm run build
